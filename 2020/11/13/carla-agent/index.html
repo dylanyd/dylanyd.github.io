@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="utf-8">
+
+    
+
+    <!-- 渲染优化 -->
+    <meta name="renderer" content="webkit">
+    <meta name="force-rendering" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="HandheldFriendly" content="True" >
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <!--icon-->
+
+    <link rel="shortcut icon" type='image/x-icon' href="/favicon.ico">
+
+
+    <!-- meta -->
+
+
+<title>carla-agent | Hexo</title>
+
+
+    <meta name="keywords" content="carla">
+
+
+
+
+    <!-- OpenGraph -->
+ 
+    <meta name="description" content="Carla自定义agent在carla0.8.x版本里， 自定义agent通过继承carla.agent.agent.Agent实现。一个简单的ForwardAgent实现如下： 1234567891011from carla.agent.agent import Agentfrom carla.client import VehicleControlclass ForwardAgent(Agen">
+<meta property="og:type" content="article">
+<meta property="og:title" content="carla-agent">
+<meta property="og:url" content="http://example.com/2020/11/13/carla-agent/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Carla自定义agent在carla0.8.x版本里， 自定义agent通过继承carla.agent.agent.Agent实现。一个简单的ForwardAgent实现如下： 1234567891011from carla.agent.agent import Agentfrom carla.client import VehicleControlclass ForwardAgent(Agen">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-11-12T23:51:54.000Z">
+<meta property="article:modified_time" content="2020-11-13T01:28:59.035Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="carla">
+<meta name="twitter:card" content="summary_large_image">
+
+
+    
+<link rel="stylesheet" href="/css/style/main.css">
+ 
+
+
+
+    
+    
+        <link rel="stylesheet" id="hl-default-theme" href="[object Object]default.min.css" media="none" onload="if(getComputedStyle(document.documentElement).getPropertyValue('--color-mode').indexOf('dark')===-1)this.media='all'">
+        
+    
+
+    
+    
+
+     
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+ 
+
+    <!-- custom head -->
+
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+    <body>
+        <div id="app">
+            <header class="header">
+    <div class="header__left">
+        <a href="/" class="button">
+            <span class="logo__text">Dylan&#39;s Blog</span>
+        </a>
+    </div>
+    <div class="header__right">
+        
+            <div class="navbar__menus">
+                
+                    <a href="/" class="navbar-menu button">首页</a>
+                
+                    <a href="/tags/" class="navbar-menu button">标签</a>
+                
+                    <a href="/archives/" class="navbar-menu button">归档</a>
+                
+                    <a href="/page/" class="navbar-menu button">关于我</a>
+                
+            </div>
+        
+        
+        
+    <a href="/search/" id="btn-search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="24" height="24" fill="currentColor" stroke="currentColor" stroke-width="32"><path d="M192 448c0-141.152 114.848-256 256-256s256 114.848 256 256-114.848 256-256 256-256-114.848-256-256z m710.624 409.376l-206.88-206.88A318.784 318.784 0 0 0 768 448c0-176.736-143.264-320-320-320S128 271.264 128 448s143.264 320 320 320a318.784 318.784 0 0 0 202.496-72.256l206.88 206.88 45.248-45.248z"></path></svg>
+    </a>
+
+
+        
+        
+
+        
+
+        
+            <a class="dropdown-icon button" id="btn-dropdown"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width='24' height='24' fill="none" stroke="currentColor" stroke-width="0.7" stroke-linecap="round" stroke-linejoin="round"><path fill="currentColor" d="M3.314,4.8h13.372c0.41,0,0.743-0.333,0.743-0.743c0-0.41-0.333-0.743-0.743-0.743H3.314c-0.41,0-0.743,0.333-0.743,0.743C2.571,4.467,2.904,4.8,3.314,4.8z M16.686,15.2H3.314c-0.41,0-0.743,0.333-0.743,0.743s0.333,0.743,0.743,0.743h13.372c0.41,0,0.743-0.333,0.743-0.743S17.096,15.2,16.686,15.2z M16.686,9.257H3.314c-0.41,0-0.743,0.333-0.743,0.743s0.333,0.743,0.743,0.743h13.372c0.41,0,0.743-0.333,0.743-0.743S17.096,9.257,16.686,9.257z"></path></svg></a>
+            <div class="dropdown-menus" id="dropdown-menus">
+                
+                    <a href="/" class="dropdown-menu button">首页</a>
+                
+                    <a href="/tags/" class="dropdown-menu button">标签</a>
+                
+                    <a href="/archives/" class="dropdown-menu button">归档</a>
+                
+                    <a href="/page/" class="dropdown-menu button">关于我</a>
+                
+            </div>
+        
+    </div>
+</header>
+
+
+            <main class="main">
+    
+
+<div class="post-title">
+    <h1 class="post-title__text">
+        carla-agent
+    </h1>
+    <div class="post-title__meta">
+        <a href="/archives/2020/11/" class="post-meta__date button">
+    2020-11-13
+</a>
+        
+    <span class="separate-dot"></span><a href="/categories/self-driving/" class="button">self-driving</a>
+
+ 
+        
+    
+     
+    <span id="busuanzi_container_page_pv" hidden>
+        <span class="separate-dot"></span>
+        <span></span>
+        <span id="busuanzi_value_page_pv"></span>
+        <span>Views</span>
+    </span>
+
+
+
+ 
+
+ 
+    </div>
+</div>
+
+
+    <aside class="post-side">
+        <div class="post-side__toc">
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Carla%E8%87%AA%E5%AE%9A%E4%B9%89agent"><span class="toc-text">Carla自定义agent</span></a></li></ol>
+        </div>
+    </aside>
+    <a class="btn-toc button" id="btn-toc">
+        <svg viewBox="0 0 1024 1024" width="32" height="32" xmlns="http://www.w3.org/2000/svg">
+            <path d="M128 256h64V192H128zM320 256h576V192H320zM128 544h64v-64H128zM320 544h576v-64H320zM128 832h64v-64H128zM320 832h576v-64H320z" fill="currentColor"></path>
+        </svg>
+    </a>
+    <div class="toc-menus" id="toc-menus">
+        <div class="toc-title">Article Directory</div>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Carla%E8%87%AA%E5%AE%9A%E4%B9%89agent"><span class="toc-text">Carla自定义agent</span></a></li></ol>
+    </div>
+
+
+<article class="post content-card">
+    <div class="post__header"></div>
+    <div class="post__content">
+        <h2 id="Carla自定义agent"><a href="#Carla自定义agent" class="headerlink" title="Carla自定义agent"></a>Carla自定义agent</h2><p>在carla0.8.x版本里， 自定义agent通过继承<code>carla.agent.agent.Agent</code>实现。一个简单的ForwardAgent实现如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> carla.agent.agent <span class="keyword">import</span> Agent</span><br><span class="line"><span class="keyword">from</span> carla.client <span class="keyword">import</span> VehicleControl</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ForwardAgent</span>(<span class="params">Agent</span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">run_step</span>(<span class="params">self, measurements, sensor_data, 		directions, target</span>):</span></span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    Function to run a control step in the CARLA vehicle.</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    control = VehicleControl()</span><br><span class="line">    control.throttle = <span class="number">0.9</span></span><br><span class="line">    <span class="keyword">return</span> control</span><br></pre></td></tr></table></figure>
+
+<p>通过重载<code>run_step</code>函数，agent实现了对ego_vehicle的控制。<code>measurements</code>提供了客户端从simulator接收的当前<code>world</code>的状态，比如ego agent的位置，方向等。<code>sensor_data</code>提供了传感器数据如图像，点云等。<code>directions</code>描述了<code>planner</code>提供的high level information。planner里存储了ego vehicle行驶路线中所有关键点的坐标，通过对比ego vehicle当前的位置和前方最近的关键点，planner会计算出high level information包括直行，左转和右转。<code>target</code>提供了路线的终点坐标。<code>run_step</code>最后返回一个<code>VehicleControl</code>对象，通过该对象的三个属性<code>throttle</code>, <code>steer</code>,和<code>brake</code>实现对ego vehicle的控制。</p>
+<p>在carla0.9.x版本里，agent接口由<code>scenario_runner/srunner/autoagents/autonomous_agent.py</code>里<code>AutonomousAgent</code>类实现。该类结构如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">AutonomousAgent</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line"></span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    Autonomous agent base class. All user agents have to be derived from this class</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, path_to_conf_file</span>):</span></span><br><span class="line">        <span class="comment">#  current global plans to reach a destination</span></span><br><span class="line">        self._global_plan = <span class="literal">None</span></span><br><span class="line">        self._global_plan_world_coord = <span class="literal">None</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># this data structure will contain all sensor data</span></span><br><span class="line">        self.sensor_interface = SensorInterface()</span><br><span class="line"></span><br><span class="line">        <span class="comment"># agent&#x27;s initialization</span></span><br><span class="line">        self.setup(path_to_conf_file)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">setup</span>(<span class="params">self, path_to_conf_file</span>):</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        Initialize everything needed by your agent and set the track attribute to the right type:</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">sensors</span>(<span class="params">self</span>):</span>  <span class="comment"># pylint: disable=no-self-use</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        Define the sensor suite required by the agent</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        :return: a list containing the required sensors in the following format:</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        [</span></span><br><span class="line"><span class="string">            &#123;&#x27;type&#x27;: &#x27;sensor.camera.rgb&#x27;, &#x27;x&#x27;: 0.7, &#x27;y&#x27;: -0.4, &#x27;z&#x27;: 1.60, &#x27;roll&#x27;: 0.0, &#x27;pitch&#x27;: 0.0, &#x27;yaw&#x27;: 0.0,</span></span><br><span class="line"><span class="string">                      &#x27;width&#x27;: 300, &#x27;height&#x27;: 200, &#x27;fov&#x27;: 100, &#x27;id&#x27;: &#x27;Left&#x27;&#125;,</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">            &#123;&#x27;type&#x27;: &#x27;sensor.camera.rgb&#x27;, &#x27;x&#x27;: 0.7, &#x27;y&#x27;: 0.4, &#x27;z&#x27;: 1.60, &#x27;roll&#x27;: 0.0, &#x27;pitch&#x27;: 0.0, &#x27;yaw&#x27;: 0.0,</span></span><br><span class="line"><span class="string">                      &#x27;width&#x27;: 300, &#x27;height&#x27;: 200, &#x27;fov&#x27;: 100, &#x27;id&#x27;: &#x27;Right&#x27;&#125;,</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">            &#123;&#x27;type&#x27;: &#x27;sensor.lidar.ray_cast&#x27;, &#x27;x&#x27;: 0.7, &#x27;y&#x27;: 0.0, &#x27;z&#x27;: 1.60, &#x27;yaw&#x27;: 0.0, &#x27;pitch&#x27;: 0.0, &#x27;roll&#x27;: 0.0,</span></span><br><span class="line"><span class="string">             &#x27;id&#x27;: &#x27;LIDAR&#x27;&#125;</span></span><br><span class="line"><span class="string">        ]</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        sensors = []</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> sensors</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">run_step</span>(<span class="params">self, input_data, timestamp</span>):</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        Execute one step of navigation.</span></span><br><span class="line"><span class="string">        :return: control</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        control = carla.VehicleControl()</span><br><span class="line">        control.steer = <span class="number">0.0</span></span><br><span class="line">        control.throttle = <span class="number">0.0</span></span><br><span class="line">        control.brake = <span class="number">0.0</span></span><br><span class="line">        control.hand_brake = <span class="literal">False</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> control</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">destroy</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        Destroy (clean-up) the agent</span></span><br><span class="line"><span class="string">        :return:</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__call__</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        Execute the agent call, e.g. agent()</span></span><br><span class="line"><span class="string">        Returns the next vehicle controls</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        input_data = self.sensor_interface.get_data()</span><br><span class="line"></span><br><span class="line">        timestamp = GameTime.get_time()</span><br><span class="line">        wallclock = GameTime.get_wallclocktime()</span><br><span class="line">        print(<span class="string">&#x27;======[Agent] Wallclock_time = &#123;&#125; / Sim_time = &#123;&#125;&#x27;</span>.<span class="built_in">format</span>(wallclock, timestamp))</span><br><span class="line"></span><br><span class="line">        control = self.run_step(input_data, timestamp)</span><br><span class="line">        control.manual_gear_shift = <span class="literal">False</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> control</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">set_global_plan</span>(<span class="params">self, global_plan_gps, global_plan_world_coord</span>):</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        Set the plan (route) for the agent</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">        ds_ids = downsample_route(global_plan_world_coord, <span class="number">1</span>)</span><br><span class="line">        self._global_plan_world_coord = [(global_plan_world_coord[x][<span class="number">0</span>], global_plan_world_coord[x][<span class="number">1</span>])</span><br><span class="line">                                         <span class="keyword">for</span> x <span class="keyword">in</span> ds_ids]</span><br><span class="line">        self._global_plan = [global_plan_gps[x] <span class="keyword">for</span> x <span class="keyword">in</span> ds_ids]</span><br></pre></td></tr></table></figure>
+
+<p><code>__init__</code>函数里定义了<code>_global_plan</code>和<code>_global_plan_world_coord</code>变量用来存储行驶路线中所有关键点的坐标。<code>sensor_interface</code>接收传感器的数据。<code>setup</code>函数初始化自定义agent需要的参数。<code>sensors</code>函数描述自定义agent需要用到的所有传感器的信息。<code>run_step</code>函数实现了自定义agent的控制。其中<code>input_data</code>提供了<code>sensors</code>函数定义的传感器的数据。0.9.x版本的API里，去掉了<code>run_step</code>里的<code>direction</code>参数，允许开发者自己通过global plan和ego vehicle的状态自己写代码去计算方向或者其他需要的量。在0.9.x版本里ForwardAgent的实现如下:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> carla</span><br><span class="line"><span class="keyword">from</span> srunner.autoagents.autonomous_agent <span class="keyword">import</span> AutonomousAgent</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ForwardAgent</span>(<span class="params">AutonomousAgent</span>):</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">setup</span>(<span class="params">self, path_to_conf_file</span>):</span></span><br><span class="line">        self.agent_engaged = <span class="literal">False</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">sensors</span>(<span class="params">self</span>):</span></span><br><span class="line"></span><br><span class="line">        sensors = [&#123;<span class="string">&#x27;type&#x27;</span>: <span class="string">&#x27;sensor.camera.rgb&#x27;</span>, <span class="string">&#x27;x&#x27;</span>: <span class="number">0.7</span>, <span class="string">&#x27;y&#x27;</span>: <span class="number">0.0</span>, <span class="string">&#x27;z&#x27;</span>: <span class="number">1.60</span>, <span class="string">&#x27;roll&#x27;</span>: <span class="number">0.0</span>, <span class="string">&#x27;pitch&#x27;</span>: <span class="number">0.0</span>, <span class="string">&#x27;yaw&#x27;</span>: <span class="number">0.0</span>,</span><br><span class="line">                    <span class="string">&#x27;width&#x27;</span>: <span class="number">800</span>, <span class="string">&#x27;height&#x27;</span>: <span class="number">600</span>, <span class="string">&#x27;fov&#x27;</span>: <span class="number">100</span>, <span class="string">&#x27;id&#x27;</span>: <span class="string">&#x27;Center&#x27;</span>&#125;,</span><br><span class="line">                   &#123;<span class="string">&#x27;type&#x27;</span>: <span class="string">&#x27;sensor.other.gnss&#x27;</span>, <span class="string">&#x27;x&#x27;</span>: <span class="number">0.7</span>, <span class="string">&#x27;y&#x27;</span>: <span class="number">-0.4</span>, <span class="string">&#x27;z&#x27;</span>: <span class="number">1.60</span>, <span class="string">&#x27;id&#x27;</span>: <span class="string">&#x27;GPS&#x27;</span>&#125;</span><br><span class="line">                   ]</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> sensors</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">run_step</span>(<span class="params">self, input_data, timestamp</span>):</span></span><br><span class="line">        self.agent_engaged = <span class="literal">True</span></span><br><span class="line">        self.current_data = input_data</span><br><span class="line">        control = carla.VehicleControl()</span><br><span class="line">        control.throttle = <span class="number">0.9</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> control</span><br></pre></td></tr></table></figure>
+
+<p>由于API的改变，官方提供的<a target="_blank" rel="noopener" href="https://github.com/carla-simulator/imitation-learning">imitation learning</a>和<a target="_blank" rel="noopener" href="https://github.com/carla-simulator/reinforcement-learning">reinforcement learning</a>的代码和模型无法直接在0.9.x版本里运行。</p>
+
+    </div>
+     
+    <div class="post-footer__meta">
+    <p>
+        updated at 2020-11-13
+    </p>
+</div> 
+    <div class="post-meta__cats">
+    
+        <a href="/categories/self-driving/" class="post-cats__link button">self-driving</a>
+    
+    
+        <a href="/tags/carla/" class="post-tags__link button"># carla</a>
+    
+</div> 
+</article>
+
+
+    <div class="nav">
+        <div class="nav__prev">
+            
+        </div>
+        <div class="nav__next">
+            
+                <a href="/2020/11/07/carla-installation/" class="nav__link">
+                    <div>
+                        <div class="nav__label">
+                            Next Post
+                        </div>
+                        <div class="nav__title">
+                            carla安装踩坑记录
+                        </div>
+                    </div>
+                    <div>
+                        <svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" width="24" height="24"><path d="M434.944 790.624l-45.248-45.248L623.04 512l-233.376-233.376 45.248-45.248L713.568 512z" fill="#808080"></path></svg>
+                    </div>
+                </a>
+            
+        </div>
+    </div>
+
+
+
+
+
+</main>
+
+            <footer class="footer">
+    
+
+
+    
+    
+    
+        <span id="busuanzi_container_site_uv" hidden>
+            <span></span>
+            <span id="busuanzi_value_site_uv"></span>
+            <span>Viewers</span>
+            
+                <span>&amp;nbsp;&amp;nbsp;&amp;nbsp;|</span>
+            
+        </span>
+    
+    
+        <span id="busuanzi_container_site_pv" hidden>
+            <span></span>
+            <span id="busuanzi_value_site_pv"></span>
+            <span>Views</span>
+            
+        </span>
+    
+ 
+ 
+
+ 
+    
+        
+        <p class="footer-copyright">
+            Copyright © 2020 <a href="/">Hexo</a>
+        </p>
+    
+    
+    <p>Powered by <a href="https://hexo.io" target="_blank">Hexo</a> | Theme - <a href="https://github.com/ChrAlpha/hexo-theme-cards" target="_blank">Cards</a></p>
+</footer>
+
+        </div>
+         
+
+ 
+
+ 
+
+ 
+
+  
+
+
+
+ 
+
+
+    
+ 
+
+ 
+
+ 
+
+ 
+
+
+
+
+    </body>
+</html>
