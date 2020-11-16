@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="utf-8">
+
+    
+
+    <!-- 渲染优化 -->
+    <meta name="renderer" content="webkit">
+    <meta name="force-rendering" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="HandheldFriendly" content="True" >
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <!--icon-->
+
+    <link rel="shortcut icon" type='image/x-icon' href="/favicon.ico">
+
+
+    <!-- meta -->
+
+
+<title>Autonomous driving specialization 课程笔记2 | Dylan&#39;s Blog</title>
+
+
+    <meta name="keywords" content="course notes">
+
+
+
+
+    <!-- OpenGraph -->
+ 
+    <meta name="description" content="Hardware and software architecture in Autonomous vehiclesSensors for perception Exteroceptive Sensors for sensing surroundings Camera (Metrics: Resolution, Field of view, Dynamic range) Stereo camera">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Autonomous driving specialization 课程笔记2">
+<meta property="og:url" content="https://dylanyd.github.io/2020/11/16/self-driving-notes-2/index.html">
+<meta property="og:site_name" content="Dylan&#39;s Blog">
+<meta property="og:description" content="Hardware and software architecture in Autonomous vehiclesSensors for perception Exteroceptive Sensors for sensing surroundings Camera (Metrics: Resolution, Field of view, Dynamic range) Stereo camera">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://i.ibb.co/1R66wXZ/autonomous-vehicle-sensors.png">
+<meta property="og:image" content="https://i.ibb.co/Yj4WF9t/sensor-configuration.png">
+<meta property="og:image" content="https://i.ibb.co/Xtxsr9w/self-driving-software-architecture.png">
+<meta property="og:image" content="https://i.ibb.co/grLkTz5/perception-module.png">
+<meta property="og:image" content="https://i.ibb.co/Hr41pGt/environment-mapping.png">
+<meta property="og:image" content="https://i.ibb.co/hVFrwSG/motion-module.png">
+<meta property="og:image" content="https://i.ibb.co/PhhjwfY/control-module.png">
+<meta property="og:image" content="https://i.ibb.co/qJRM6Mh/system-supervisor.png">
+<meta property="article:published_time" content="2020-11-16T04:07:19.000Z">
+<meta property="article:modified_time" content="2020-11-16T08:19:16.369Z">
+<meta property="article:author" content="Yao Deng">
+<meta property="article:tag" content="course notes">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://i.ibb.co/1R66wXZ/autonomous-vehicle-sensors.png">
+
+
+    
+<link rel="stylesheet" href="/css/style/main.css">
+ 
+
+
+
+    
+    
+        <link rel="stylesheet" id="hl-default-theme" href="[object Object]default.min.css" media="none" onload="if(getComputedStyle(document.documentElement).getPropertyValue('--color-mode').indexOf('dark')===-1)this.media='all'">
+        
+    
+
+    
+    
+
+     
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+ 
+
+    <!-- custom head -->
+
+    
+        <meta name="google-site-verification" content="oum-rV1ppQJ17tlcEfD9sMXeLdQiHdQNahqGex17Skw" /> 
+    
+
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+    <body>
+        <div id="app">
+            <header class="header">
+    <div class="header__left">
+        <a href="/" class="button">
+            <span class="logo__text">Dylan&#39;s Blog</span>
+        </a>
+    </div>
+    <div class="header__right">
+        
+            <div class="navbar__menus">
+                
+                    <a href="/" class="navbar-menu button">首页</a>
+                
+                    <a href="/tags/" class="navbar-menu button">标签</a>
+                
+                    <a href="/archives/" class="navbar-menu button">归档</a>
+                
+                    <a href="/page/" class="navbar-menu button">关于</a>
+                
+            </div>
+        
+        
+        
+    <a href="/search/" id="btn-search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="24" height="24" fill="currentColor" stroke="currentColor" stroke-width="32"><path d="M192 448c0-141.152 114.848-256 256-256s256 114.848 256 256-114.848 256-256 256-256-114.848-256-256z m710.624 409.376l-206.88-206.88A318.784 318.784 0 0 0 768 448c0-176.736-143.264-320-320-320S128 271.264 128 448s143.264 320 320 320a318.784 318.784 0 0 0 202.496-72.256l206.88 206.88 45.248-45.248z"></path></svg>
+    </a>
+
+
+        
+        
+
+        
+
+        
+            <a class="dropdown-icon button" id="btn-dropdown"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width='24' height='24' fill="none" stroke="currentColor" stroke-width="0.7" stroke-linecap="round" stroke-linejoin="round"><path fill="currentColor" d="M3.314,4.8h13.372c0.41,0,0.743-0.333,0.743-0.743c0-0.41-0.333-0.743-0.743-0.743H3.314c-0.41,0-0.743,0.333-0.743,0.743C2.571,4.467,2.904,4.8,3.314,4.8z M16.686,15.2H3.314c-0.41,0-0.743,0.333-0.743,0.743s0.333,0.743,0.743,0.743h13.372c0.41,0,0.743-0.333,0.743-0.743S17.096,15.2,16.686,15.2z M16.686,9.257H3.314c-0.41,0-0.743,0.333-0.743,0.743s0.333,0.743,0.743,0.743h13.372c0.41,0,0.743-0.333,0.743-0.743S17.096,9.257,16.686,9.257z"></path></svg></a>
+            <div class="dropdown-menus" id="dropdown-menus">
+                
+                    <a href="/" class="dropdown-menu button">首页</a>
+                
+                    <a href="/tags/" class="dropdown-menu button">标签</a>
+                
+                    <a href="/archives/" class="dropdown-menu button">归档</a>
+                
+                    <a href="/page/" class="dropdown-menu button">关于</a>
+                
+            </div>
+        
+    </div>
+</header>
+
+
+            <main class="main">
+    
+
+<div class="post-title">
+    <h1 class="post-title__text">
+        Autonomous driving specialization 课程笔记2
+    </h1>
+    <div class="post-title__meta">
+        <a href="/archives/2020/11/" class="post-meta__date button">
+    2020-11-16
+</a>
+        
+    <span class="separate-dot"></span><a href="/categories/self-driving/" class="button">self-driving</a>
+
+ 
+        
+    
+     
+    <span id="busuanzi_container_page_pv" hidden>
+        <span class="separate-dot"></span>
+        <span></span>
+        <span id="busuanzi_value_page_pv"></span>
+        <span>Views</span>
+    </span>
+
+
+
+ 
+
+ 
+    </div>
+</div>
+
+
+    <aside class="post-side">
+        <div class="post-side__toc">
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Hardware-and-software-architecture-in-Autonomous-vehicles"><span class="toc-text">Hardware and software architecture in Autonomous vehicles</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Sensors-for-perception"><span class="toc-text">Sensors for perception</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Sensor-configuration"><span class="toc-text">Sensor configuration</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Software-architecture"><span class="toc-text">Software architecture</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#High-level"><span class="toc-text">High level</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Perception-Module"><span class="toc-text">Perception Module</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Planning-module"><span class="toc-text">Planning module</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Controller-module"><span class="toc-text">Controller module</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#System-supervisor"><span class="toc-text">System supervisor</span></a></li></ol></li></ol></li></ol>
+        </div>
+    </aside>
+    <a class="btn-toc button" id="btn-toc">
+        <svg viewBox="0 0 1024 1024" width="32" height="32" xmlns="http://www.w3.org/2000/svg">
+            <path d="M128 256h64V192H128zM320 256h576V192H320zM128 544h64v-64H128zM320 544h576v-64H320zM128 832h64v-64H128zM320 832h576v-64H320z" fill="currentColor"></path>
+        </svg>
+    </a>
+    <div class="toc-menus" id="toc-menus">
+        <div class="toc-title">Article Directory</div>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Hardware-and-software-architecture-in-Autonomous-vehicles"><span class="toc-text">Hardware and software architecture in Autonomous vehicles</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Sensors-for-perception"><span class="toc-text">Sensors for perception</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Sensor-configuration"><span class="toc-text">Sensor configuration</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Software-architecture"><span class="toc-text">Software architecture</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#High-level"><span class="toc-text">High level</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Perception-Module"><span class="toc-text">Perception Module</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Planning-module"><span class="toc-text">Planning module</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Controller-module"><span class="toc-text">Controller module</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#System-supervisor"><span class="toc-text">System supervisor</span></a></li></ol></li></ol></li></ol>
+    </div>
+
+
+<article class="post content-card">
+    <div class="post__header"></div>
+    <div class="post__content">
+        <h2 id="Hardware-and-software-architecture-in-Autonomous-vehicles"><a href="#Hardware-and-software-architecture-in-Autonomous-vehicles" class="headerlink" title="Hardware and software architecture in Autonomous vehicles"></a>Hardware and software architecture in Autonomous vehicles</h2><h3 id="Sensors-for-perception"><a href="#Sensors-for-perception" class="headerlink" title="Sensors for perception"></a>Sensors for perception</h3><ul>
+<li>Exteroceptive Sensors for sensing surroundings<ul>
+<li>Camera (Metrics: Resolution, Field of view, Dynamic range)</li>
+<li>Stereo camera (combination of two cameras): enables depth estimation from image data</li>
+<li>LIDAR: 3D scene geometry (Metrics: Number of beams, Points per second, Rotation rate, Field of view)</li>
+<li>Radar: robustly detect large objects in the environment and useful in adverse weather. (Metrics: Range, Field of view, Position and speed accuracy)</li>
+<li>Ultrasonics: for parking</li>
+</ul>
+</li>
+<li>Proprioceptive sensors for sensing internal<ul>
+<li>Global Navigation Satellite Systems (GNSS) / IMU: measure ego vehicle position, velocity, and sometimes heading</li>
+<li>wheel odometry sensors: track the wheel rates of rotation, and uses these to estimate the speed and heading rate of change of the ego car.</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://i.ibb.co/1R66wXZ/autonomous-vehicle-sensors.png" alt="Autonomous vehicle sensors"></p>
+<h3 id="Sensor-configuration"><a href="#Sensor-configuration" class="headerlink" title="Sensor configuration"></a>Sensor configuration</h3><p>For different scenarios, requirements of sensor coverage are different. It is important to ensure there is no blind spots in overall coverage of perception.</p>
+<ul>
+<li>Longitudinal coverage: Ego-vehicle should perceive objects in the current lane  whatever in the front (for vehicle following, emergency stop, and overtaking) or behind (for lane change).</li>
+<li>Lateral coverage: Ego-vehicle should perceive objects in adjacent and further lanes (for lane change, emergency stop, overtaking, turning at intersections, and pass roundabouts).</li>
+<li>For different tasks, the perception ranges are different.</li>
+</ul>
+<p><img src="https://i.ibb.co/Yj4WF9t/sensor-configuration.png" alt="Sensor configuration"></p>
+<h3 id="Software-architecture"><a href="#Software-architecture" class="headerlink" title="Software architecture"></a>Software architecture</h3><h4 id="High-level"><a href="#High-level" class="headerlink" title="High level"></a>High level</h4><p><img src="https://i.ibb.co/Xtxsr9w/self-driving-software-architecture.png"></p>
+<h4 id="Perception-Module"><a href="#Perception-Module" class="headerlink" title="Perception Module"></a>Perception Module</h4><p>Perception module involves perceive environmental information (localization of ego-vehicle; detect static objects; detect and track dynamic objects; predict the motion of dynamic objects) and create/update environment map (Occupancy Grid Map; Localization Map; Detailed Road Map) using the information.</p>
+<p><img src="https://i.ibb.co/grLkTz5/perception-module.png"></p>
+<p><img src="https://i.ibb.co/Hr41pGt/environment-mapping.png"></p>
+<h4 id="Planning-module"><a href="#Planning-module" class="headerlink" title="Planning module"></a>Planning module</h4><ul>
+<li> Mission planner: Create a mission path from current position to current goal</li>
+<li>Behavior planner: Output current behavior (e.g. lane change; speed up)</li>
+<li>Local planner:  Output current running trajectory</li>
+</ul>
+<p><img src="https://i.ibb.co/hVFrwSG/motion-module.png"></p>
+<h4 id="Controller-module"><a href="#Controller-module" class="headerlink" title="Controller module"></a>Controller module</h4><p><img src="https://i.ibb.co/PhhjwfY/control-module.png"></p>
+<h4 id="System-supervisor"><a href="#System-supervisor" class="headerlink" title="System supervisor"></a>System supervisor</h4><p>System supervisor monitors whether the whole autonomous driving system works normally.</p>
+<ul>
+<li>Hardware Supervisor: <ul>
+<li>Monitoring statuses of all hardware (e.g., broken of camera).</li>
+<li>Monitoring sensors’ outputs (e.g., corrupting LIDAR point cloud data).</li>
+</ul>
+</li>
+<li>Software Supervisor: <ul>
+<li>Validating this software stack to make sure that all elements are running as intended at the right frequencies and providing complete outputs.</li>
+<li>Analyzing inconsistencies between the outputs of all modules.</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://i.ibb.co/qJRM6Mh/system-supervisor.png"></p>
+
+    </div>
+     
+    <div class="post-footer__meta">
+    <p>
+        updated at 2020-11-16
+    </p>
+</div> 
+    <div class="post-meta__cats">
+    
+        <a href="/categories/self-driving/" class="post-cats__link button">self-driving</a>
+    
+    
+        <a href="/tags/course-notes/" class="post-tags__link button"># course notes</a>
+    
+</div> 
+</article>
+
+
+    <div class="nav">
+        <div class="nav__prev">
+            
+        </div>
+        <div class="nav__next">
+            
+                <a href="/2020/11/13/autonomous-driving-notes-1/" class="nav__link">
+                    <div>
+                        <div class="nav__label">
+                            Next Post
+                        </div>
+                        <div class="nav__title">
+                            Autonomous driving specialization 课程笔记1
+                        </div>
+                    </div>
+                    <div>
+                        <svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" width="24" height="24"><path d="M434.944 790.624l-45.248-45.248L623.04 512l-233.376-233.376 45.248-45.248L713.568 512z" fill="#808080"></path></svg>
+                    </div>
+                </a>
+            
+        </div>
+    </div>
+
+
+
+
+
+</main>
+
+            <footer class="footer">
+    
+
+
+    
+    
+    
+        <span id="busuanzi_container_site_uv" hidden>
+            <span></span>
+            <span id="busuanzi_value_site_uv"></span>
+            <span>Viewers</span>
+            
+                <span>&amp;nbsp;&amp;nbsp;&amp;nbsp;|</span>
+            
+        </span>
+    
+    
+        <span id="busuanzi_container_site_pv" hidden>
+            <span></span>
+            <span id="busuanzi_value_site_pv"></span>
+            <span>Views</span>
+            
+        </span>
+    
+ 
+ 
+
+ 
+    
+        
+        <p class="footer-copyright">
+            Copyright © 2020 <a href="/">Dylan&#39;s Blog</a>
+        </p>
+    
+    
+    <p>Powered by <a href="https://hexo.io" target="_blank">Hexo</a> | Theme - <a href="https://github.com/ChrAlpha/hexo-theme-cards" target="_blank">Cards</a></p>
+</footer>
+
+        </div>
+         
+
+ 
+
+ 
+
+ 
+
+  
+
+
+
+ 
+
+
+    
+ 
+
+ 
+
+ 
+
+ 
+
+
+
+
+    </body>
+</html>
