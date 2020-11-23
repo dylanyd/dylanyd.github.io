@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="utf-8">
+
+    
+
+    <!-- 渲染优化 -->
+    <meta name="renderer" content="webkit">
+    <meta name="force-rendering" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="HandheldFriendly" content="True" >
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <!--icon-->
+
+    <link rel="shortcut icon" type='image/x-icon' href="/favicon.ico">
+
+
+    <!-- meta -->
+
+
+<title>Carla 0.8.x driving-benchmark分析 | Dylan&#39;s Blog</title>
+
+
+    <meta name="keywords" content="carla">
+
+
+
+
+    <!-- OpenGraph -->
+ 
+    <meta name="description" content="Carla 0.8.x driving-benchmark分析CORL-2017Carla 0.8.x 实现了CORL-2017 experiment suite用于测试自定义agent. 这个experiment suite总共包含了4类task在6种不同的天气条件下(Clear Noon, Heavy Rain Noon, Clear Sunset, After Rain Noon, Clou">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Carla 0.8.x driving-benchmark分析">
+<meta property="og:url" content="https://dylanyd.github.io/2020/11/22/carla-benchmark/index.html">
+<meta property="og:site_name" content="Dylan&#39;s Blog">
+<meta property="og:description" content="Carla 0.8.x driving-benchmark分析CORL-2017Carla 0.8.x 实现了CORL-2017 experiment suite用于测试自定义agent. 这个experiment suite总共包含了4类task在6种不同的天气条件下(Clear Noon, Heavy Rain Noon, Clear Sunset, After Rain Noon, Clou">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://carla.readthedocs.io/en/stable/img/town01_positions.png">
+<meta property="article:published_time" content="2020-11-22T00:12:15.000Z">
+<meta property="article:modified_time" content="2020-11-23T10:15:13.632Z">
+<meta property="article:author" content="Yao Deng">
+<meta property="article:tag" content="carla">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://carla.readthedocs.io/en/stable/img/town01_positions.png">
+
+
+    
+<link rel="stylesheet" href="/css/style/main.css">
+ 
+
+
+
+    
+    
+        <link rel="stylesheet" id="hl-default-theme" href="[object Object]default.min.css" media="none" onload="if(getComputedStyle(document.documentElement).getPropertyValue('--color-mode').indexOf('dark')===-1)this.media='all'">
+        
+    
+
+    
+    
+
+     
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+ 
+
+    <!-- custom head -->
+
+    
+        <meta name="google-site-verification" content="oum-rV1ppQJ17tlcEfD9sMXeLdQiHdQNahqGex17Skw" /> 
+    
+
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+    <body>
+        <div id="app">
+            <header class="header">
+    <div class="header__left">
+        <a href="/" class="button">
+            <span class="logo__text">Dylan&#39;s Blog</span>
+        </a>
+    </div>
+    <div class="header__right">
+        
+            <div class="navbar__menus">
+                
+                    <a href="/" class="navbar-menu button">首页</a>
+                
+                    <a href="/tags/" class="navbar-menu button">标签</a>
+                
+                    <a href="/archives/" class="navbar-menu button">归档</a>
+                
+                    <a href="/page/" class="navbar-menu button">关于</a>
+                
+            </div>
+        
+        
+        
+    <a href="/search/" id="btn-search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="24" height="24" fill="currentColor" stroke="currentColor" stroke-width="32"><path d="M192 448c0-141.152 114.848-256 256-256s256 114.848 256 256-114.848 256-256 256-256-114.848-256-256z m710.624 409.376l-206.88-206.88A318.784 318.784 0 0 0 768 448c0-176.736-143.264-320-320-320S128 271.264 128 448s143.264 320 320 320a318.784 318.784 0 0 0 202.496-72.256l206.88 206.88 45.248-45.248z"></path></svg>
+    </a>
+
+
+        
+        
+
+        
+
+        
+            <a class="dropdown-icon button" id="btn-dropdown"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width='24' height='24' fill="none" stroke="currentColor" stroke-width="0.7" stroke-linecap="round" stroke-linejoin="round"><path fill="currentColor" d="M3.314,4.8h13.372c0.41,0,0.743-0.333,0.743-0.743c0-0.41-0.333-0.743-0.743-0.743H3.314c-0.41,0-0.743,0.333-0.743,0.743C2.571,4.467,2.904,4.8,3.314,4.8z M16.686,15.2H3.314c-0.41,0-0.743,0.333-0.743,0.743s0.333,0.743,0.743,0.743h13.372c0.41,0,0.743-0.333,0.743-0.743S17.096,15.2,16.686,15.2z M16.686,9.257H3.314c-0.41,0-0.743,0.333-0.743,0.743s0.333,0.743,0.743,0.743h13.372c0.41,0,0.743-0.333,0.743-0.743S17.096,9.257,16.686,9.257z"></path></svg></a>
+            <div class="dropdown-menus" id="dropdown-menus">
+                
+                    <a href="/" class="dropdown-menu button">首页</a>
+                
+                    <a href="/tags/" class="dropdown-menu button">标签</a>
+                
+                    <a href="/archives/" class="dropdown-menu button">归档</a>
+                
+                    <a href="/page/" class="dropdown-menu button">关于</a>
+                
+            </div>
+        
+    </div>
+</header>
+
+
+            <main class="main">
+    
+
+<div class="post-title">
+    <h1 class="post-title__text">
+        Carla 0.8.x driving-benchmark分析
+    </h1>
+    <div class="post-title__meta">
+        <a href="/archives/2020/11/" class="post-meta__date button">
+    2020-11-22
+</a>
+        
+    <span class="separate-dot"></span><a href="/categories/self-driving/" class="button">self-driving</a>
+
+ 
+        
+    
+     
+    <span id="busuanzi_container_page_pv" hidden>
+        <span class="separate-dot"></span>
+        <span></span>
+        <span id="busuanzi_value_page_pv"></span>
+        <span>Views</span>
+    </span>
+
+
+
+ 
+
+ 
+    </div>
+</div>
+
+
+    <aside class="post-side">
+        <div class="post-side__toc">
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Carla-0-8-x-driving-benchmark%E5%88%86%E6%9E%90"><span class="toc-text">Carla 0.8.x driving-benchmark分析</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#CORL-2017"><span class="toc-text">CORL-2017</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Agent-evaluation"><span class="toc-text">Agent evaluation</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#direction%E5%85%B7%E4%BD%93%E7%9A%84%E8%AE%A1%E7%AE%97%E6%96%B9%E6%B3%95"><span class="toc-text">direction具体的计算方法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Metrics"><span class="toc-text">Metrics</span></a></li></ol></li></ol></li></ol>
+        </div>
+    </aside>
+    <a class="btn-toc button" id="btn-toc">
+        <svg viewBox="0 0 1024 1024" width="32" height="32" xmlns="http://www.w3.org/2000/svg">
+            <path d="M128 256h64V192H128zM320 256h576V192H320zM128 544h64v-64H128zM320 544h576v-64H320zM128 832h64v-64H128zM320 832h576v-64H320z" fill="currentColor"></path>
+        </svg>
+    </a>
+    <div class="toc-menus" id="toc-menus">
+        <div class="toc-title">Article Directory</div>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Carla-0-8-x-driving-benchmark%E5%88%86%E6%9E%90"><span class="toc-text">Carla 0.8.x driving-benchmark分析</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#CORL-2017"><span class="toc-text">CORL-2017</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Agent-evaluation"><span class="toc-text">Agent evaluation</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#direction%E5%85%B7%E4%BD%93%E7%9A%84%E8%AE%A1%E7%AE%97%E6%96%B9%E6%B3%95"><span class="toc-text">direction具体的计算方法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Metrics"><span class="toc-text">Metrics</span></a></li></ol></li></ol></li></ol>
+    </div>
+
+
+<article class="post content-card">
+    <div class="post__header"></div>
+    <div class="post__content">
+        <h2 id="Carla-0-8-x-driving-benchmark分析"><a href="#Carla-0-8-x-driving-benchmark分析" class="headerlink" title="Carla 0.8.x driving-benchmark分析"></a>Carla 0.8.x driving-benchmark分析</h2><h3 id="CORL-2017"><a href="#CORL-2017" class="headerlink" title="CORL-2017"></a>CORL-2017</h3><p>Carla 0.8.x 实现了CORL-2017 experiment suite用于测试自定义agent. 这个experiment suite总共包含了4类task在6种不同的天气条件下(Clear Noon, Heavy Rain Noon, Clear Sunset, After Rain Noon, Cloudy After Rain and Soft Rain Sunset)，共24个experiment:</p>
+<ul>
+<li>A task for going straight.</li>
+<li>A task for making a single turn.</li>
+<li>A task for going to an arbitrary position.</li>
+<li>A task for going to an arbitrary position with dynamic objects.</li>
+</ul>
+<p>每个experiment,由25组pose(起始位置，终点位置)和一个condition (天气状况，场景里其他车，人的数目，和使用sensor的配置)来定义。poses对应到地图上预先定义好的位置，如图所示：</p>
+<p><img src="https://carla.readthedocs.io/en/stable/img/town01_positions.png"></p>
+<h3 id="Agent-evaluation"><a href="#Agent-evaluation" class="headerlink" title="Agent evaluation"></a>Agent evaluation</h3><p><code>run_driving_benchmark</code>加载自定义agent和experiment suite并对agent进行evaluation。在该函数中，一个<code>DrivingBenchmark</code>的实例被创造。<code>DivingBenchmark</code>调用<code>benchmark_agent</code>用于加载experiment并给agent提供high level information，具体指根据ego-vehicle当前的位置告诉agent当前的direction是什么(straight, turn left, turn right, or lane keeping).  agent会接收根据该信息和sensor数据，然后输出当前对ego-vehicle的控制指令，实现对ego-vehicle的控制。</p>
+<h4 id="direction具体的计算方法"><a href="#direction具体的计算方法" class="headerlink" title="direction具体的计算方法"></a>direction具体的计算方法</h4><p>Carla里的地图可以转化为一个加权有向图，地图上的任意一点的坐标可以对应到图里一个node，一个node会包含许多个坐标点。道路交叉位置的node会被记录下来。同时这个图又可以被转换为Grid用于A*寻路算法来计算从给定起点到终点的路径。当ego-vehicle获取到当前的sensor信息和自身的位置后，一条从当前位置到终点的路径由A*算法计算出来，这条路径由许多nodes来表示。如果当前所处的node离最近的交叉路口的node距离还很远，此时的direction为lane follow。否则会根据前一个node和当前node连成的向量与当前node和后一个node连成的向量之间的角度来判断应该是直行，左转还是右转。</p>
+<h4 id="Metrics"><a href="#Metrics" class="headerlink" title="Metrics"></a>Metrics</h4><p>当一个experiment被执行完后 (ego-vehicle抵达终点或者超时)，ego-vehicle的measurements (速度，所有经过的坐标点等)会被记录下来，一个<code>Metrics</code>实例会根据行驶路径去衡量ego-vehicle的表现（是否超速，是否越过黄线，是否有碰撞等）。</p>
+
+    </div>
+     
+    <div class="post-footer__meta">
+    <p>
+        updated at 2020-11-23
+    </p>
+</div> 
+    <div class="post-meta__cats">
+    
+        <a href="/categories/self-driving/" class="post-cats__link button">self-driving</a>
+    
+    
+        <a href="/tags/carla/" class="post-tags__link button"># carla</a>
+    
+</div> 
+</article>
+
+
+    <div class="nav">
+        <div class="nav__prev">
+            
+        </div>
+        <div class="nav__next">
+            
+                <a href="/2020/11/16/self-driving-notes-2/" class="nav__link">
+                    <div>
+                        <div class="nav__label">
+                            Next Post
+                        </div>
+                        <div class="nav__title">
+                            Autonomous driving specialization 课程笔记2
+                        </div>
+                    </div>
+                    <div>
+                        <svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" width="24" height="24"><path d="M434.944 790.624l-45.248-45.248L623.04 512l-233.376-233.376 45.248-45.248L713.568 512z" fill="#808080"></path></svg>
+                    </div>
+                </a>
+            
+        </div>
+    </div>
+
+
+
+
+
+</main>
+
+            <footer class="footer">
+    
+
+
+    
+    
+    
+        <span id="busuanzi_container_site_uv" hidden>
+            <span></span>
+            <span id="busuanzi_value_site_uv"></span>
+            <span>Viewers</span>
+            
+                <span>&amp;nbsp;&amp;nbsp;&amp;nbsp;|</span>
+            
+        </span>
+    
+    
+        <span id="busuanzi_container_site_pv" hidden>
+            <span></span>
+            <span id="busuanzi_value_site_pv"></span>
+            <span>Views</span>
+            
+        </span>
+    
+ 
+ 
+
+ 
+    
+        
+        <p class="footer-copyright">
+            Copyright © 2020 <a href="/">Dylan&#39;s Blog</a>
+        </p>
+    
+    
+    <p>Powered by <a href="https://hexo.io" target="_blank">Hexo</a> | Theme - <a href="https://github.com/ChrAlpha/hexo-theme-cards" target="_blank">Cards</a></p>
+</footer>
+
+        </div>
+         
+
+ 
+
+ 
+
+ 
+
+  
+
+
+
+ 
+
+
+    
+ 
+
+ 
+
+ 
+
+ 
+
+
+
+
+    </body>
+</html>
